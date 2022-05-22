@@ -59,13 +59,7 @@ body {
   position: absolute;
   width: 100%;
 }
-.saved-cover-title,
-.saved-tagline {
-  text-align: center;
-  color: black;
-  position: relative;
-  width: 100%;
-}
+
 
 .cover-title {
   bottom: .9em;
