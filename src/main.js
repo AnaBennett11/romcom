@@ -56,6 +56,7 @@ function getRandomCover(){
      showRandomCoverButton.classList.add('hidden')
      saveCoverButton.classList.add('hidden')
      homeButton.classList.remove('hidden')
+     savedCoversSection.classList.add('hidden')
  }
 
  function seeSavedCovers() {
@@ -74,6 +75,8 @@ function getRandomCover(){
    homeButton.classList.add('hidden')
    showRandomCoverButton.classList.remove('hidden')
    saveCoverButton.classList.remove('hidden')
+   form.classList.add('hidden')
+   savedCoversSection.classList.add('hidden')
  }
 
  function makeMyBook(event) {
@@ -117,32 +120,35 @@ function saveCoversButton() {
 }
 
  function viewSavedCovers () {
-   innerHTML = '';
+   var htmladd = '';
    for(var i = 0; i < savedCovers.length; i ++) {
-     innerHTML += '<section id="' + savedCovers[i].id + '"   class="saved-covers-section">';
-     innerHTML += '<img class="cover-image dblClickTarget" src="' + savedCovers[i].cover + '">';
-     innerHTML += '<h2 class="saved-cover-title">' + savedCovers[i].title + '</h2>';
-     innerHTML += '<h3 class="saved-tagline">A tale of <span class="tagline-1">' + savedCovers[i].tagline1 + '</span> and <span class="tagline-2">' + savedCovers[i].tagline2 + '</span></h3>';
-     innerHTML += '<img class="price-tag" src="./assets/price.png">';
-     innerHTML += '<img class="overlay" src="./assets/overlay.png">';
-     innerHTML += '</section>';
+     htmladd += `<section class="mini-cover">
+      <img  class="cover-image" id=${savedCovers[i].id} src=${savedCovers[i].cover}>
+      <h2 class="cover-title">${savedCovers[i].title}</h2>
+      <h3 class="tagline">A tale of <span class="tagline-1"> ${savedCovers[i].tagline1}</span> and <span class="tagline-2"> ${savedCovers[i].tagline2}</span></h3>
+      <img class="price-tag" src="./assets/price.png">
+      <img class="overlay" src="./assets/overlay.png">
+      </section>`;
    }
 
-   savedCoversSection.innerHTML = innerHTML;
+   savedCoversSection.innerHTML = htmladd;
 
 }
 
-// function performDelete(e) {
-//   alert(e.target.parentElement.id);
-//
-//   for (var i = 0; i < savedCovers.length; i ++) {
-//       if (savedCovers[i].id = e.target.parentElement.id) {
-//       savedCovers.splice(i);
-//       break;
-//     }
-//   }
-//
-//   viewSavedCovers();
+ function performDelete(e) {
+   var deleteCover = document.getElementById(e.target.id)
+   deleteCover.parentElement.remove()
+   for (var i = 0; i < savedCovers.length; i ++) {
+      if (savedCovers[i].id == e.target.id) {
+      savedCovers.splice(i, 1);
+      }
+   }
+
+  viewSavedCovers();
+  }
+
+
+
 //
 //   1.  save the id to a varaiabel
 //   2.  loop through savedcovers array to find the index of the targeted array elements
